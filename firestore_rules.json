@@ -1,0 +1,76 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 1. Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 3. Primitive Definition
+    function isSignedIn() {
+      // NOTE: We don't check email_verified here unless email auth is used.
+      // With Google Auth in AI Studio, they usually are verified, but sometimes not depending on tenant.
+      return request.auth != null;
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Validation Blueprint for QuizScore
+    function isValidQuizScore(data) {
+      return data.keys().hasAll(['userId', 'score', 'total', 'createdAt']) &&
+             data.keys().size() == 4 &&
+             data.userId is string && data.userId.size() <= 128 && data.userId == request.auth.uid &&
+             data.score is number &&
+             data.total is number &&
+             data.createdAt == request.time;
+    }
+
+    // Validation Blueprint for SavedWavelength
+    function isValidSavedWavelength(data) {
+      return data.keys().hasAll(['userId', 'wavelengthNm', 'label', 'createdAt']) &&
+             data.keys().size() == 4 &&
+             data.userId is string && data.userId.size() <= 128 && data.userId == request.auth.uid &&
+             data.wavelengthNm is number &&
+             data.label is string && data.label.size() <= 100 &&
+             data.createdAt == request.time;
+    }
+
+    match /users/{userId} {
+      // Users can only access their own user document
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      // Optionally allow user to create their user doc, but we aren't storing much at root yet.
+      
+      match /quizScores/{scoreId} {
+        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(scoreId);
+        allow list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isSignedIn() && 
+                         request.auth.uid == userId && 
+                         isValidId(scoreId) && 
+                         isValidQuizScore(incoming());
+        allow update: if false; // Scores are immutable
+        allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(scoreId);
+      }
+
+      match /savedWavelengths/{wavelengthId} {
+        allow read: if isSignedIn() && request.auth.uid == userId && isValidId(wavelengthId);
+        allow list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isSignedIn() && 
+                         request.auth.uid == userId && 
+                         isValidId(wavelengthId) && 
+                         isValidSavedWavelength(incoming());
+        allow update: if false; // Delete and recreate preferred, or implement strict hasOnly()
+        allow delete: if isSignedIn() && request.auth.uid == userId && isValidId(wavelengthId);
+      }
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "entities": {
+    "quizScore": {
+      "title": "Quiz Score",
+      "description": "A user's quiz result from the Light Spectrum Knowledge Challenge.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the user who took the quiz.",
+          "maxLength": 128
+        },
+        "score": {
+          "type": "number",
+          "description": "Number of correct answers."
+        },
+        "total": {
+          "type": "number",
+          "description": "Total number of questions."
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "When the score was submitted."
+        }
+      },
+      "required": ["userId", "score", "total", "createdAt"]
+    },
+    "savedWavelength": {
+      "title": "Saved Wavelength",
+      "description": "A wavelength value saved by a user as a bookmark.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "UID of the user.",
+          "maxLength": 128
+        },
+        "wavelengthNm": {
+          "type": "number",
+          "description": "Wavelength in nanometers."
+        },
+        "label": {
+          "type": "string",
+          "description": "A custom label/name for the wavelength.",
+          "maxLength": 100
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "description": "When the wavelength was saved."
+        }
+      },
+      "required": ["userId", "wavelengthNm", "label", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/quizScores/{scoreId}": {
+      "schema": {
+        "$ref": "#/entities/quizScore"
+      },
+      "description": "Stores quiz scores for a specific user."
+    },
+    "/users/{userId}/savedWavelengths/{wavelengthId}": {
+      "schema": {
+        "$ref": "#/entities/savedWavelength"
+      },
+      "description": "Stores custom saved wavelengths for a specific user."
+    }
+  }
+}

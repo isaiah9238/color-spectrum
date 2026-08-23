@@ -16,8 +16,10 @@
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.1.14",
     "dotenv": "^17.2.3",
+    "esbuild": "0.28.2",
     "express": "^4.21.2",
     "firebase": "12.18.0",
+    "firebase-admin": "14.3.0",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
     "react": "^19.2.8",
@@ -37,7 +39,10 @@
     "@vitejs/plugin-react": "^6.0.5",
     "autoprefixer": "^10.4.21",
     "cross-env": "^10.1.0",
+    "node": "24.18.0",
+    "npm": "11.16.0",
     "oxlint": "^1.78.0",
+    "pnpm": "11.22.0",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "^7.0.0",
@@ -45,12 +50,14 @@
   },
   "allowScripts": {
     "@google/genai": "^2.17.1",
-    "esbuild": "^0.25.12",
+    "esbuild": "^0.28.2",
     "protobufjs": "^7.6.5",
-    "firebase/util": "^1.15.3",
-    "@google/genai@2.17.1": true,
-    "protobufjs@7.6.5": true,
-    "esbuild@0.28.2": true,
-    "firebase/util": true
+    "firebase/util": "1.15.3",
+    "re2": "1.26.1",
+    "@google/genai@2.17.1": "true",
+    "protobufjs@7.6.5": "true",
+    "esbuild@0.28.2": "true",
+    "re2@1.26.1": "true",
+    "@firebase/util@1.15.3": "true"
   }
 }
