@@ -1,7 +1,9 @@
 // instructions.tsx
 import React from 'react';
 
-// Stage 1: Discrete Orbital Toroid (Dual Emitter Stream)
+/**
+ * Stage 1: Discrete Orbital Toroid (Dual Emitter Stream)
+ */
 export const Stage1DiscreteOrbital: React.FC = () => (
   <svg
     viewBox="0 0 800 400"
@@ -34,48 +36,51 @@ export const Stage1DiscreteOrbital: React.FC = () => (
   </svg>
 );
 
-export const ToroidalSvg: React.FC = () => {
-  return (
-    <svg
-      viewBox="0 0 800 400"
-      width="100%"
-      height="200"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ background: '#0a0c10', borderRadius: '8px' }}
-    >
-      <defs>
-        <radialGradient id="amberCore" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#fff4cc" />
-          <stop offset="70%" stopColor="#e6a100" />
-          <stop offset="100%" stopColor="#2a1b00" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="redLobe" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#ff0000" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#330000" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="blueLobe" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#7000ff" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#00ffff" stopOpacity="0" />
-        </radialGradient>
-        <radialGradient id="greenLobe" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#00ff66" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#003311" stopOpacity="0" />
-        </radialGradient>
-      </defs>
+/**
+ * Toroidal RGB Emitter / Tri-Lobe Core
+ */
+export const ToroidalSvg: React.FC = () => (
+  <svg
+    viewBox="0 0 800 400"
+    width="100%"
+    height="200"
+    xmlns="http://www.w3.org/2000/svg"
+    style={{ background: '#0a0c10', borderRadius: '8px', display: 'block' }}
+  >
+    <defs>
+      <radialGradient id="t-amberCore" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#fff4cc" />
+        <stop offset="70%" stopColor="#e6a100" />
+        <stop offset="100%" stopColor="#2a1b00" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="t-redLobe" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#ff0000" stopOpacity="0.9" />
+        <stop offset="100%" stopColor="#330000" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="t-blueLobe" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#7000ff" stopOpacity="0.9" />
+        <stop offset="100%" stopColor="#00ffff" stopOpacity="0" />
+      </radialGradient>
+      <radialGradient id="t-greenLobe" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#00ff66" stopOpacity="0.9" />
+        <stop offset="100%" stopColor="#003311" stopOpacity="0" />
+      </radialGradient>
+    </defs>
 
-      {/* Orbiting streams */}
-      <ellipse cx="100" cy="200" rx="90" ry="40" fill="url(#redLobe)" />
-      <ellipse cx="300" cy="200" rx="90" ry="40" fill="url(#blueLobe)" />
-      <ellipse cx="500" cy="200" rx="90" ry="40" fill="url(#greenLobe)" />
+    {/* Orbiting streams */}
+    <ellipse cx="100" cy="200" rx="90" ry="40" fill="url(#t-redLobe)" />
+    <ellipse cx="300" cy="200" rx="90" ry="40" fill="url(#t-blueLobe)" />
+    <ellipse cx="500" cy="200" rx="90" ry="40" fill="url(#t-greenLobe)" />
 
-      {/* Central core */}
-      <circle cx="400" cy="200" r="45" fill="#1b122c" />
-      <circle cx="400" cy="200" r="30" fill="url(#amberCore)" />
-    </svg>
-  );
+    {/* Central core */}
+    <circle cx="400" cy="200" r="45" fill="#1b122c" />
+    <circle cx="400" cy="200" r="30" fill="url(#t-amberCore)" />
+  </svg>
+);
 
-
-// Stage 2: Additive Corona Blend (Magenta / Cyan Overlap)
+/**
+ * Stage 2: Additive Corona Blend (Magenta / Cyan Overlap)
+ */
 export const Stage2CoronaBlend: React.FC = () => (
   <svg
     viewBox="0 0 800 400"
@@ -115,7 +120,9 @@ export const Stage2CoronaBlend: React.FC = () => (
   </svg>
 );
 
-// Stage 3: Dipole Standing Wave Envelope (k = 1)
+/**
+ * Stage 3: Dipole Standing Wave Envelope (k = 1)
+ */
 export const Stage3WaveEnvelope: React.FC = () => (
   <svg
     viewBox="0 0 800 400"
