@@ -15,8 +15,8 @@ async function startServer() {
   // 2. Use vite's connect instance as middleware
   app.use(vite.middlewares);
 
-  // 3. SSR HTML Handler
-  app.use('*', async (req, res, next) => {
+  // 3. SSR HTML Handler (Omit the path string so it captures all incoming GET requests)
+  app.use(async (req, res, next) => {
     const url = req.originalUrl;
 
     try {
