@@ -1,0 +1,84 @@
+:root {
+  /* Light mode */
+  --bg: #F5F5F7;
+  --panel: #E1E3E6;
+  --panel-raised: #F0F1F3;
+  --text: #2C2F33;
+  --header: #4A6FA5;
+  --active: #FF7A1A;
+  --construction: #4A6FA5;
+}
+
+:root.dark {
+  /* Dark mode */
+  --bg: #121417;
+  --panel: #1E2227;
+  --panel-raised: #262B31;
+  --text: #D0D3D6;
+  --header: #6ECFF6;
+  --active: #3A8CFF;
+  --construction: #6ECFF6;
+}
+
+body, .sidebar, .panel, .toolbar, .text, .icon {
+  transition:
+    background-color 150ms ease,
+    color 120ms ease,
+    border-color 150ms ease,
+    box-shadow 180ms ease,
+    transform 150ms ease;
+}
+
+body {
+  background-color: var(--bg);
+  transition-delay: 0ms;
+}
+
+.sidebar {
+  background-color: var(--panel);
+  transform: translateY(0px);
+  transition-delay: 50ms;
+}
+
+:root.dark .sidebar,
+:root:not(.dark) .sidebar {
+  transform: translateY(2px); /* subtle material shift */
+}
+
+.sidebar .text,
+.sidebar .icon {
+  color: var(--text);
+  transition-delay: 100ms;
+}
+
+.tool.active {
+  border: 2px solid var(--active);
+  box-shadow: 0 0 8px var(--active);
+  transition-delay: 180ms;
+}
+
+:root.dark .tool.active {
+  /* Dark mode glow */
+  box-shadow: 0 0 10px var(--active);
+  border-color: transparent;
+}
+
+:root:not(.dark) .tool.active {
+  /* Light mode outline */
+  box-shadow: none;
+  border-color: var(--active);
+}
+
+.canvas-grid {
+  opacity: 0.2;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+:root.dark .canvas-grid {
+  opacity: 0.15;
+  transform: scale(1.03);
+}
+
+toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+}

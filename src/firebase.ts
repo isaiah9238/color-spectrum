@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from 'firebase/firestore';
-import firebaseConfig from '../../firebase-applet-config.json';
 import { 
   getAuth, 
   GoogleAuthProvider, 
